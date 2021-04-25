@@ -6,6 +6,7 @@ using System.Net;
 using Android.App;
 using System.IO;
 using Result = RandomUser.Model.Result;
+using Xamarin.Essentials;
 
 namespace RandomUser.Service
 {
@@ -31,7 +32,22 @@ namespace RandomUser.Service
 
         public async Task<Result[]> PrepareOfflineData()
         {
-            var users = await GetUserProfiles();
+            var users = new Result[] { };
+
+            var currentNetwork = Connectivity.NetworkAccess;
+
+            if(currentNetwork != Xamarin.Essentials.NetworkAccess.None)
+            {
+                users = await GetUserProfiles();
+            }
+            else
+            {
+                // load user data from sqlite
+
+                // return data to Activity
+            }
+
+            
 
             var imageStorePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData);
 
