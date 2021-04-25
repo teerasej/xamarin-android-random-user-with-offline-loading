@@ -10,6 +10,10 @@ namespace RandomUser
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
+
+        ListView listView;
+        LinearLayout loading;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -17,8 +21,8 @@ namespace RandomUser
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
-            var listView = FindViewById<ListView>(Resource.Id.listViewUser);
-            var loading = FindViewById<LinearLayout>(Resource.Id.layoutLoading);
+            listView = FindViewById<ListView>(Resource.Id.listViewUser);
+            loading = FindViewById<LinearLayout>(Resource.Id.layoutLoading);
 
             listView.Visibility = ViewStates.Gone;
             loading.Visibility = ViewStates.Visible;
