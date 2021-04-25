@@ -34,11 +34,18 @@ namespace RandomUser.Service
         {
             var users = new Result[] { };
 
+            var storePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData);
+
+            var dbName = "data.db";
+            var dbPath = Path.Combine(storePath, dbName);
+            var db = new UserDatabase(dbPath);
+
             var currentNetwork = Connectivity.NetworkAccess;
 
             if(currentNetwork != Xamarin.Essentials.NetworkAccess.None)
             {
                 users = await GetUserProfiles();
+                await db.ResetDatabase();
             }
             else
             {
@@ -47,10 +54,7 @@ namespace RandomUser.Service
                 // return data to Activity
             }
 
-            
-
-            var imageStorePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData);
-
+            var imageStorePath = storePath;
             webClient = new WebClient();
 
             // loop through users list to download their's profile

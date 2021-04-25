@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Threading.Tasks;
 using SQLite;
 
 namespace RandomUser.Model
@@ -11,6 +12,11 @@ namespace RandomUser.Model
         {
             database = new SQLiteAsyncConnection(dbPath);
             database.CreateTableAsync<UserDBModel>().Wait();
+        }
+
+        public Task<int> ResetDatabase()
+        {
+            return database.DropTableAsync<UserDBModel>();
         }
     }
 }
