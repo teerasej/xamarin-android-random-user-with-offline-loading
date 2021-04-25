@@ -17,6 +17,7 @@ namespace RandomUser
             SetContentView(Resource.Layout.activity_main);
 
             var listView = FindViewById<ListView>(Resource.Id.listViewUser);
+            var loading = FindViewById<LinearLayout>(Resource.Id.layoutLoading);
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
