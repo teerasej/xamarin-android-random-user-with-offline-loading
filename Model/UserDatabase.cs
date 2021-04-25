@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using SQLite;
 
@@ -34,6 +35,22 @@ namespace RandomUser.Model
             {
                 return database.InsertAsync(userToDB);
             }
+        }
+
+        public async Task<Result[]> GetUsersAsync()
+        {
+            var results = new List<Result>();
+            var count = await database.Table<UserDBModel>().CountAsync();
+            var usersFromDB = await database.QueryAsync<UserDBModel>("SELECT * FROM users");
+
+            UserDBModel user;
+            for (int i = 0; i < usersFromDB.Count; i++)
+            {
+                user = usersFromDB[i];
+                results.Add(user.GenerateUserResultIntance());
+            }
+
+            return results.ToArray();
         }
     }
 }
