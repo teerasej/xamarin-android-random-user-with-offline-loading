@@ -10,6 +10,7 @@ namespace RandomUser.Model
         public UserDatabase(string dbPath)
         {
             database = new SQLiteAsyncConnection(dbPath);
+            database.CreateTableAsync<UserDBModel>().Wait();
         }
     }
 }
