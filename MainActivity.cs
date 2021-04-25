@@ -42,6 +42,13 @@ namespace RandomUser
         {
             var service = new UserService();
             var users = await service.GetUserProfiles();
+
+            listView.Adapter = new UserProfileListAdapter(this, users);
+
+
+            listView.Visibility = ViewStates.Visible;
+            loading.Visibility = ViewStates.Gone;
+
             return true;
         }
     }
