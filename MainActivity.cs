@@ -41,7 +41,7 @@ namespace RandomUser
         private async Task<bool> LoadUserProfiles()
         {
             var service = new UserService();
-            var users = await service.GetUserProfiles();
+            var users = await service.PrepareOfflineData();
 
             listView.Adapter = new UserProfileListAdapter(this, users);
 
