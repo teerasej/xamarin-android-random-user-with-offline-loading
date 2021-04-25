@@ -174,7 +174,7 @@ namespace RandomUser.Model
     public partial class Name
     {
         [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
-        public Title? Title { get; set; }
+        public string Title { get; set; }
 
         [JsonProperty("first", NullValueHandling = NullValueHandling.Ignore)]
         public string First { get; set; }
