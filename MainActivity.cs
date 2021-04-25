@@ -1,9 +1,11 @@
-﻿using Android.App;
+﻿using System.Threading.Tasks;
+using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+using RandomUser.Service;
 
 namespace RandomUser
 {
@@ -26,12 +28,21 @@ namespace RandomUser
 
             listView.Visibility = ViewStates.Gone;
             loading.Visibility = ViewStates.Visible;
+
+            LoadUserProfiles();
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        private async Task<bool> LoadUserProfiles()
+        {
+            var service = new UserService();
+            var users = await service.GetUserProfiles();
+            return true;
         }
     }
 }
