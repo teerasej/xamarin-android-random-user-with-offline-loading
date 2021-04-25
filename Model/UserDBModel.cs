@@ -3,6 +3,7 @@ using SQLite;
 
 namespace RandomUser.Model
 {
+    [Table("users")]
     public class UserDBModel
     {
         [PrimaryKey, AutoIncrement]
@@ -35,7 +36,29 @@ namespace RandomUser.Model
             this.PhoneNumber = result.Phone;
             this.Email = result.Email;
 
-            this.ImagePath = result.Picture.Large.AbsoluteUri;
+            this.ImagePath = result.Picture.Large.AbsolutePath;
+        }
+
+        public Result GenerateUserResultIntance()
+        {
+            var result = new Result
+            {
+                Name = new Name
+                {
+                    First = this.FirstName,
+                    Last = this.LastName
+                },
+
+                Phone = this.PhoneNumber,
+                Email = this.Email,
+
+                Picture = new Picture
+                {
+                    Large = new Uri(this.ImagePath)
+                }
+            };
+
+            return result;
         }
     }
 }
