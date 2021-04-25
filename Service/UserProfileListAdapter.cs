@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Net;
 using Android.App;
+using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using Result = RandomUser.Model.Result;
@@ -42,7 +44,26 @@ namespace RandomUser
 
             view.FindViewById<TextView>(Resource.Id.textPhoneNumber).Text = user.Phone;
 
+            var bitmapImage = GetImageBitmapFromUrl(user.Picture.Large.AbsoluteUri);
+            view.FindViewById<ImageView>(Resource.Id.imageUserProfile).SetImageBitmap(bitmapImage);
+
             return view;
+        }
+
+        private Bitmap GetImageBitmapFromUrl(string url)
+        {
+            Bitmap imageBitmap = null;
+
+            using (var webClient = new WebClient())
+            {
+                var imageBytes = webClient.DownloadData(url);
+                if (imageBytes != null && imageBytes.Length > 0)
+                {
+                    imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                }
+            }
+
+            return imageBitmap;
         }
     }
 }
