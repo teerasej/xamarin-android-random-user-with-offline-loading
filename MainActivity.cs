@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.OS;
 using Android.Runtime;
+using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 
@@ -18,6 +19,9 @@ namespace RandomUser
 
             var listView = FindViewById<ListView>(Resource.Id.listViewUser);
             var loading = FindViewById<LinearLayout>(Resource.Id.layoutLoading);
+
+            listView.Visibility = ViewStates.Gone;
+            loading.Visibility = ViewStates.Visible;
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
