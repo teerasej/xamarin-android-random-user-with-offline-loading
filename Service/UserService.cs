@@ -23,7 +23,7 @@ namespace RandomUser.Service
 
         public async Task<Result[]> GetUserProfiles()
         {
-            var request = new RestRequest("", DataFormat.Json).AddParameter("results", 200);
+            var request = new RestRequest("", DataFormat.Json).AddParameter("results", 100);
             var response = await Client.ExecuteAsync(request);
             var userModel = UserRemoteModel.FromJson(response.Content);
             return userModel.Results;
@@ -47,6 +47,7 @@ namespace RandomUser.Service
 
                 if (localImagePath == null || File.Exists(localImagePath))
                 {
+                    user.Picture.Large = new Uri(localImagePath);
                     continue;
                 }
 
