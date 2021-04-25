@@ -41,8 +41,9 @@ namespace RandomUser.Service
             var db = new UserDatabase(dbPath);
 
             var currentNetwork = Connectivity.NetworkAccess;
-
-            if(currentNetwork != Xamarin.Essentials.NetworkAccess.None)
+            var IsConnected = currentNetwork != Xamarin.Essentials.NetworkAccess.None;
+            
+            if (IsConnected)
             {
                 users = await GetUserProfiles();
                 await db.ResetDatabase();
@@ -50,8 +51,10 @@ namespace RandomUser.Service
             else
             {
                 // load user data from sqlite
+                users = await db.GetUsersAsync();
 
                 // return data to Activity
+                return users;
             }
 
             var imageStorePath = storePath;
